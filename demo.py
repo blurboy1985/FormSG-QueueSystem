@@ -16,7 +16,7 @@ The event is limited to 10 pax.
 # Check if the queue counter exceeds the limit
 if st.session_state.queue_counter <= 10:
 
-    if st.button('Register'):
+    if st.button('Generate Latest Queue Number'):
         registration_link = f"https://form.gov.sg/64bfbe8bf8b1ef0011d9a0df?64bfbebb7b53ad0011459dde={st.session_state.queue_counter}"
         
         # Using markdown to style the link as a button and display the queue counter without target="_blank"
