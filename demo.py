@@ -1,5 +1,15 @@
 import streamlit as st
 
+from streamlit.components.v1 import html
+def open_page(url):
+    open_script= """
+        <script type="text/javascript">
+            window.open('%s', '_blank').focus();
+        </script>
+    """ % (url)
+    html(open_script)
+
+
 # Check if 'queue_counter' is already in the session state
 if 'queue_counter' not in st.session_state:
     st.session_state.queue_counter = 1  # Initialize queue_counter to 1 if not present
@@ -15,18 +25,22 @@ The event is limited to 10 pax.
 
 # Check if the queue counter exceeds the limit
 if st.session_state.queue_counter <= 10:
+    
+    if st.button('Register'):
 
-    if st.button('Generate Latest Queue Number'):
         registration_link = f"https://form.gov.sg/64bfbe8bf8b1ef0011d9a0df?64bfbebb7b53ad0011459dde={st.session_state.queue_counter}"
-        
-        # Using markdown to style the link as a button and display the queue counter without target="_blank"
-        button_code = f'<a href="{registration_link}" target="_blank" style="padding: 10px 20px; background-color: #FF2E63; color: white; border-radius: 4px; text-decoration: none;">Register</a>'
-        st.markdown(button_code, unsafe_allow_html=True)
-        
-        st.write(f"Queue Number: {st.session_state.queue_counter}")
+        on_click=open_page(registration_link)        
 
         # Increment the queue counter for the next person
         st.session_state.queue_counter += 1
+
+        if st.session_state.queue_counter <= 10:
+            st.write(f"Queue Number: {st.session_state.queue_counter}")
+        else:
+            st.write("""
+            Due to overwhelming response, the event has been fully registered.
+            You may email to [abc@gov.sg](mailto:abc@gov.sg) to check if there are any more vacancies for the event.
+            """)
 
 else:
     st.write("""
