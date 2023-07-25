@@ -1,5 +1,5 @@
-import streamlit as st
 from streamlit_autorefresh import st_autorefresh
+import streamlit as st
 
 # Check if 'queue_counter' is already in the session state
 if 'queue_counter' not in st.session_state:
