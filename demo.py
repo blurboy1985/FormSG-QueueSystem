@@ -1,4 +1,6 @@
 import streamlit as st
+from streamlit_autorefresh import st_autorefresh
+
 
 # Check if 'queue_counter' is already in the session state
 if 'queue_counter' not in st.session_state:
@@ -26,6 +28,7 @@ if st.session_state.queue_counter <= 10:
 
     # Increment the queue counter for the next person
     st.session_state.queue_counter += 1
+    st_autorefresh(interval=1, limit=1)  # Refresh the page every 1 second
 
 else:
     st.write("""
